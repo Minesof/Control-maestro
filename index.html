@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minesof Master Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+</head>
+<body>
+
+    <!-- Login Screen -->
+    <div id="loginScreen" class="overlay" style="display: flex;">
+        <div class="card">
+            <h2 style="text-align:center; margin-bottom: 5px;">Minesof Admin</h2>
+            <p style="text-align:center; color: #64748b; font-size: 0.9rem; margin-bottom: 30px;">Panel Exclusivo de Super-Administrador</p>
+            <div id="loginError" style="display: none; background: #fee2e2; color: #dc2626; padding: 10px; border-radius: 8px; margin-bottom: 15px; font-size: 0.85rem; text-align: center;"></div>
+            <div class="form-group">
+                <label>Correo de Administrador</label>
+                <input type="email" id="loginEmail" placeholder="admin@minesof.com" required>
+            </div>
+            <div class="form-group">
+                <label>Contraseña</label>
+                <input type="password" id="loginPassword" placeholder="******" required>
+            </div>
+            <button id="loginBtn" class="btn btn-primary" style="width: 100%; margin-top: 10px;">Ingresar al Panel</button>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboardScreen" class="dashboard" style="display: none;">
+        <header class="topbar">
+            <div class="logo">Minesof <span>Master</span></div>
+            <div class="user-info">
+                <span id="userEmailDisplay">...</span>
+                <button id="logoutBtn" class="btn btn-danger btn-sm">Cerrar Sesión</button>
+            </div>
+        </header>
+
+        <main class="content">
+            <div class="header-actions">
+                <h2>Negocios Registrados</h2>
+                <div class="stats">
+                    <div class="stat-badge"><i data-lucide="users"></i> <span id="totalUsersCount">0</span> Negocios Totales</div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table id="tenantsTable">
+                    <thead>
+                        <tr>
+                            <th>Correo del Negocio</th>
+                            <th>Fecha de Registro</th>
+                            <th>Estado Actual</th>
+                            <th>Acciones de Control</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tenantsTableBody">
+                        <!-- Creado dinámicamente -->
+                    </tbody>
+                </table>
+                <div id="loadingIndicator" style="padding: 40px; text-align: center; color: #64748b;">
+                    Cargando negocios...
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
