@@ -1,4 +1,4 @@
-﻿document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     lucide.createIcons();
 
     const loginScreen = document.getElementById('loginScreen');
@@ -120,30 +120,30 @@ window.viewTenantStats = async (tenantId, email) => {
         const totalProducts = configData && configData.products ? configData.products.length : 0;
         const totalCategories = configData && configData.categories ? configData.categories.length : 0;
         
-        content.innerHTML = 
+        content.innerHTML = `
             <div style="background:#f1f5f9; padding:15px; border-radius:8px; margin-bottom:15px;">
-                <p style="margin:0 0 5px 0;"><strong>Correo:</strong>  + email + </p>
-                <p style="margin:0;"><strong>Nombre Negocio:</strong>  + (configData && configData.businessName ? configData.businessName : '<i>No configurado</i>') + </p>
+                <p style="margin:0 0 5px 0;"><strong>Correo:</strong> ` + email + `</p>
+                <p style="margin:0;"><strong>Nombre Negocio:</strong> ` + (configData && configData.businessName ? configData.businessName : '<i>No configurado</i>') + `</p>
             </div>
             <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
                 <div style="border:1px solid #e2e8f0; padding:15px; border-radius:8px; text-align:center;">
-                    <h2 style="margin:0; color:#2563eb;"> + totalOrders + </h2>
+                    <h2 style="margin:0; color:#2563eb;">` + totalOrders + `</h2>
                     <span style="font-size:0.85rem; color:#64748b;">Ventas/Pedidos</span>
                 </div>
                 <div style="border:1px solid #e2e8f0; padding:15px; border-radius:8px; text-align:center;">
-                    <h2 style="margin:0; color:#10b981;"> + totalProducts + </h2>
+                    <h2 style="margin:0; color:#10b981;">` + totalProducts + `</h2>
                     <span style="font-size:0.85rem; color:#64748b;">Productos Creados</span>
                 </div>
                 <div style="border:1px solid #e2e8f0; padding:15px; border-radius:8px; text-align:center;">
-                    <h2 style="margin:0; color:#f59e0b;"> + totalCategories + </h2>
+                    <h2 style="margin:0; color:#f59e0b;">` + totalCategories + `</h2>
                     <span style="font-size:0.85rem; color:#64748b;">Categorías</span>
                 </div>
                 <div style="border:1px solid #e2e8f0; padding:15px; border-radius:8px; text-align:center;">
-                    <h2 style="margin:0; color:#ef4444;"> + totalExpenses + </h2>
+                    <h2 style="margin:0; color:#ef4444;">` + totalExpenses + `</h2>
                     <span style="font-size:0.85rem; color:#64748b;">Egresos Registrados</span>
                 </div>
             </div>
-        ;
+        `;
     } catch(e) {
         console.error(e);
         content.innerHTML = '<p style="color:red; text-align:center;">Error al cargar datos.<br><br>Necesitas actualizar las <b>Reglas de Seguridad de Firebase</b> para permitir al Super Administrador leer los datos de los inquilinos.</p>';
