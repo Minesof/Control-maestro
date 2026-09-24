@@ -7,12 +7,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const logoutBtn = document.getElementById('logoutBtn');
     const loginError = document.getElementById('loginError');
 
-    // ONLY THIS EMAIL CAN LOGIN TO THE MASTER PANEL
-    // Ideally this is checked in Firebase Rules too, but we restrict it on frontend for simplicity here.
-    const SUPER_ADMIN_EMAIL = 'admin@minesof.com'; // Adjust this to their actual email later
+    const ALLOWED_ADMINS = ['minesof.oficial@gmail.com', '28jdpm@gmail.com'];
 
     window.auth.onAuthStateChanged(user => {
         if (user) {
+            // VERIFICACIÓN ESTRICTA EN EL FRONTEND
+            if (!ALLOWED_ADMINS.includes(user.email.toLowerCase())) {
+                window.auth.signOut();
+                loginError.textContent = "Acceso Denegado: Esta cuenta no tiene privilegios de Máster.";
+                loginError.style.display = 'block';
+                return;
+            }
+            
             document.getElementById('userEmailDisplay').textContent = user.email;
             loginScreen.style.display = 'none';
             dashboardScreen.style.display = 'block';
