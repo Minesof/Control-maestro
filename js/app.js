@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+﻿document.addEventListener('DOMContentLoaded', () => {
     lucide.createIcons();
 
     const loginScreen = document.getElementById('loginScreen');
@@ -81,10 +81,15 @@ async function loadTenants() {
             if(data.createdAt && data.createdAt.toDate) {
                 dateStr = data.createdAt.toDate().toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' });
             }
+            let lastLoginStr = 'Sin registro';
+            if(data.lastLogin && data.lastLogin.toDate) {
+                lastLoginStr = data.lastLogin.toDate().toLocaleDateString('es-ES', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+            }
 
             tr.innerHTML = `
                 <td style="font-weight: 600;">${data.email || 'Sin correo'}</td>
                 <td style="color: #64748b;">${dateStr}</td>
+                <td style="color: #0ea5e9; font-weight:500;">${lastLoginStr}</td>
                 <td>${statusBadge}</td>
                 <td>${actionBtn} ${statsBtn}</td>
             `;
