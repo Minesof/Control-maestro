@@ -325,7 +325,7 @@ window.addTrialDays = async (tenantId) => {
 };
 
 window.deleteTenant = async (tenantId, email) => {
-    if(!confirm(ATENCIÓN: ¿Estás seguro que deseas ELIMINAR por completo el negocio de ' + email + '? Esta acción NO se puede deshacer y borrará todos los registros del negocio en la base de datos.)) return;
+    if(!confirm("ATENCIÓN: ¿Estás seguro que deseas ELIMINAR por completo el negocio de '" + email + "'? Esta acción NO se puede deshacer y borrará todos los registros del negocio en la base de datos.")) return;
     
     try {
         await db.collection('tenants').doc(tenantId).delete();
