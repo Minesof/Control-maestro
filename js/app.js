@@ -93,8 +93,9 @@ async function loadTenants() {
                 ? `<span class="badge-suspended">Suspendido</span>` 
                 : `<span class="badge-active">Activo</span>`;
                 
-            const actionBtn = isSuspended ? `<button class='btn btn-success btn-sm' onclick='toggleTenantStatus("${doc.id}", "active")'>Reactivar</button>` : `<button class='btn btn-danger btn-sm' onclick='toggleTenantStatus("${doc.id}", "suspended")'>Bloquear</button>`;
-            const statsBtn = `<button class='btn btn-primary btn-sm' style='margin-left: 10px;' onclick='viewTenantStats("${doc.id}", "${data.email}")'>Ver Actividad</button>`;
+            const actionBtn = isSuspended ? `<button class='btn btn-success btn-sm' style='width:100%; text-align:center;' onclick='toggleTenantStatus("${doc.id}", "active")'>Reactivar</button>` : `<button class='btn btn-danger btn-sm' style='width:100%; text-align:center;' onclick='toggleTenantStatus("${doc.id}", "suspended")'>Bloquear</button>`;
+            const statsBtn = `<button class='btn btn-primary btn-sm' style='width:100%; text-align:center;' onclick='viewTenantStats("${doc.id}", "${data.email}")'>Ver Actividad</button>`;
+            const deleteBtn = `<button class='btn btn-danger btn-sm' style='width:100%; text-align:center; background:#7f1d1d; border-color:#7f1d1d;' onclick='deleteTenant("${doc.id}", "${data.email}")'>Eliminar</button>`;
 
             let dateStr = 'N/A';
             if(data.createdAt && data.createdAt.toDate) {
@@ -132,7 +133,7 @@ async function loadTenants() {
                 <td style="color: #0ea5e9; font-weight:500;">${lastLoginStr}</td>
                 <td>${statusBadge}</td>
                 <td>${trialBadge}</td>
-                <td>${actionBtn} ${statsBtn}</td>
+                <td><div style="display: flex; flex-direction: column; gap: 5px; width: 110px;">${actionBtn} ${statsBtn} ${deleteBtn}</div></td>
             `;
             tbody.appendChild(tr);
         });
@@ -320,5 +321,16 @@ window.addTrialDays = async (tenantId) => {
     } catch(e) {
         console.error("Error al agregar días:", e);
         alert("Error al agregar días: " + e.message);
+    }
+};
+
+window.deleteTenant = async (tenantId, email) => {
+    if(!confirm(ATENCIÓN: ¿Estás seguro que deseas ELIMINAR por completo el negocio de ' + email + '? Esta acción NO se puede deshacer y borrará todos los registros del negocio en la base de datos.)) return;
+    
+    try {
+        await db.collection('tenants').doc(tenantId).delete();
+        loadTenants();
+    } catch(e) {
+        alert("Error al eliminar: " + e.message);
     }
 };
