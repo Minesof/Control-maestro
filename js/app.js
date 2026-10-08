@@ -84,8 +84,10 @@ async function loadTenants() {
         document.getElementById('totalUsersCount').textContent = snapshot.docs.length;
         
         tbody.innerHTML = '';
-        snapshot.docs.forEach(doc => {
+                snapshot.docs.forEach(doc => {
             const data = doc.data();
+            if (data.status === 'deleted') return; // Hide deleted accounts
+
             const tr = document.createElement('tr');
             
             const isSuspended = data.status === 'suspended';
